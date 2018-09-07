@@ -712,6 +712,13 @@
 
                 //如果当前元素的个数大于1只选择第一个元素作为$input用于设置$description的位置
                 var $input = $el.length > 1 ? $el.eq(0) : $el;
+
+
+               $el.each(function(index, item) {
+                   var $item = $(item);
+                   $item.data("ruleKey", key);
+                });
+
                 $elements.push({$el: $el, key: rule.key, $description: $description});
                 if (rule.description != null && typeof rule.description == "function") {
                     rule.description($description, $input, key, rule);  //用于设置提示显示的位置
@@ -736,22 +743,13 @@
         }
 
 
+        /**
+         * 判断该元素是否满足应用失败或通过时的函数
+          * @param $this
+         * @returns {boolean}
+         */
         function isAllowedField($this) {
-            var allowed = $this.isValidateField;
-            if (allowed === undefined) {
-                for (var i in $elements) {
-                    var $element = $elements[i];
-                    var $el = $element.$el;
-                    if ($el[0] === $this[0]) {
-                        allowed = true;
-                        $this.ruleKey = $element.key;
-                        break;
-                    }
-                }
-                if (!allowed) allowed = false;
-                $this.isValidateField = allowed;
-            }
-            return allowed;
+            return $this.data("ruleKey") != null;
         }
 
         function sortElements() {
@@ -762,11 +760,7 @@
                     for (var i in $elements) {
                         var $element = $elements[i];
                         var $el = $element.$el;
-                      /*  if (($el.length == 1 && $item.is($el)) || $el.eq(0).is($item)) {
-                            $elements_sort.push($element);
-                            break;
-                        }
-*/
+                        //只采用第一个元素相同时作为排序的标准
                         if ($el[0] === $item[0]) {
                             $elements_sort.push($element);
                             break;
@@ -793,7 +787,7 @@
                 $this.data("validField", false);
                 fn.apply(this, arguments);
                 if (custom.always && typeof custom.always === "function") {
-                    custom.always.call(this, $this.ruleKey, false);
+                    custom.always.call(this, $this.data("ruleKey"), false);
                 }
             }
         }
@@ -805,7 +799,7 @@
                 $this.data("validField", true);
                 fn.apply(this, arguments);
                 if (custom.always && typeof custom.always === "function") {
-                    custom.always.call(this, $this.ruleKey, true);
+                    custom.always.call(this, $this.data("ruleKey"), true);
                 }
             }
         }

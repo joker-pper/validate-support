@@ -10,6 +10,12 @@
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
+
+
+    <link type="text/css" rel="stylesheet" href="resource/syntaxhighlighter/styles/shCore.css"/>
+    <link type="text/css" rel="Stylesheet" href="resource/syntaxhighlighter/styles/shThemeDefault.css" />
+
+
     <style type="text/css">
         .form-wrapper {
             padding-right: 15px;
@@ -31,10 +37,22 @@
         <div class="col-sm-8 col-md-6 col-offset-sm-2 col-sm-offset-2 col-md-offset-3">
             <div class="form-wrapper">
                 <form class="form-horizontal first-form" action="">
+                    <div class="description ">
+                        <div class="text-center">
+                            <h4><strong>Bootstrap</strong> Form
+                            </h4>
+                        </div>
 
-                    <div class="description text-center">
-                        <h4><strong>Bootstrap</strong> Form</h4>
+                        <div class="row">
+                            <div class="col-sm-offset-8 col-sm-4 text-right" style="margin-top: -36px;">
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#codeModal" data-key="validate1">
+                                    查看代码
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
+
 
                     <div class="form-group">
                         <label for="name" class="col-sm-3 control-label">name</label>
@@ -63,17 +81,17 @@
                     <div class="form-group">
                         <label for="mask" class="col-sm-3 control-label">mask</label>
                         <div class="col-sm-9">
-<!--
-                            <input type="text" name="mask" id="mask" placeholder="R$ 0,00" data-pattern="^(?:R\$)?\s*(\d+)(?:[,\.](\d)(\d)?)?\d*$" data-mask="R$ ${1},${2:`0`}${3:`0`}">
--->
+                            <!--
+                                                        <input type="text" name="mask" id="mask" placeholder="R$ 0,00" data-pattern="^(?:R\$)?\s*(\d+)(?:[,\.](\d)(\d)?)?\d*$" data-mask="R$ ${1},${2:`0`}${3:`0`}">
+                            -->
                             <input type="text" name="mask" class="form-control" id="mask" placeholder="R$ 0,00">
                         </div>
                     </div> <div class="form-group">
-                        <label for="email" class="col-sm-3 control-label">email</label>
-                        <div class="col-sm-9">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="email">
-                        </div>
+                    <label for="email" class="col-sm-3 control-label">email</label>
+                    <div class="col-sm-9">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="email">
                     </div>
+                </div>
                     <div class="form-group">
                         <label for="range" class="col-sm-3 control-label">range</label>
                         <div class="col-sm-9">
@@ -152,8 +170,20 @@
 
                 <form class="form-horizontal second-form" method="post" action="">
 
-                    <div class="description text-center">
-                        <h4><strong>Bootstrap</strong> Form</h4>
+                    <div class="description ">
+                        <div class="text-center">
+                            <h4><strong>Bootstrap</strong> Form
+                            </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-offset-8 col-sm-4 text-right" style="margin-top: -36px;">
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#codeModal" data-key="validate2">
+                                    查看代码
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -189,6 +219,23 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="codeModal" tabindex="-1" role="dialog" aria-labelledby="codeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="codeModalLabel">js代码预览</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -198,18 +245,29 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="../validate/jquery-validate.js"></script>
+<!--
 <script src="../src/jquery.validate.support.js"></script>
+-->
+<script src="../src/jquery.validate.support.min.js"></script>
+
+<script type="text/javascript" src="resource/syntaxhighlighter/scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
+<script type="text/javascript" src="resource/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="resource/syntaxhighlighter/scripts/shBrushJScript.js"></script>
 
 <script type="text/javascript">
-
     $("form").find("input").each(function (index, item) {
         $(item).attr("autocomplete", "off");
+    });
 
-    })
+
+</script>
+
+
+<script type="text/javascript" id="validate1">
     var validate1 = $("form.first-form").validateSupport({  //当表单控件没有约束时,默认会加上成功的样式
-         eachValidField : function() {  //成功时添加的样式
-             $(this).parents('.form-group').removeClass('has-error').addClass('has-success');
-         },
+        eachValidField : function() {  //成功时添加的样式
+            $(this).parents('.form-group').removeClass('has-error').addClass('has-success');
+        },
         eachInvalidField: function () {  //失败时
             $(this).parents('.form-group').removeClass('has-success').addClass('has-error');
         },
@@ -249,6 +307,8 @@
                 template: function (key) {
                     if (key == "name") {
                         return '<span class="help-block name-valid">{content}</span>';
+                    } else if (key == "checkbox") {
+                        return '';
                     }
                     return '<span class="help-block">{content}</span>';
                 },
@@ -395,12 +455,7 @@
                 id: true
             },
             checkbox: {
-                message: {
-                    valid: {  //覆盖验证通过时的提示
-                        template: '',
-                        content: '名称通过验证'
-                    }
-                }
+
             }
         },
         invalid: function (event, options) {  //提交表单验证不通过时
@@ -411,6 +466,8 @@
         }
     });
 
+</script>
+<script type="text/javascript" id="validate2">
     var validate2 = $("form.second-form").validateSupport({
         eachValidField: function () {  //成功时添加的样式
             $(this).parents('.form-group').removeClass('has-error').addClass('has-success has-feedback');
@@ -493,8 +550,30 @@
             alert(this.serialize());
         }
     });
-
 </script>
 
+<script type="text/javascript">
+    var brush = new SyntaxHighlighter.brushes.JScript(),
+        html;
+    brush.init({ toolbar: false });
+
+    var validate1Code = document.getElementById('validate1').innerHTML;
+    var validate2Code = document.getElementById('validate2').innerHTML;
+
+    html = {
+        validate1: brush.getHtml(validate1Code),
+        validate2: brush.getHtml(validate2Code)
+    };
+
+    $('#codeModal').on('show.bs.modal', function (e) {
+        var $button = $(e.relatedTarget);
+        var key = $button.attr("data-key");
+
+        var $this = $(this);
+        var $modalBody = $this.find(".modal-body");
+        $modalBody.html(html[key]);
+    });
+
+</script>
 </body>
 </html>
