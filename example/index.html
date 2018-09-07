@@ -264,7 +264,7 @@
 
 
 <script type="text/javascript" id="validate1">
-    var validate1 = $("form.first-form").validateSupport({  //当表单控件没有约束时,默认会加上成功的样式
+    var validate1 = $("form.first-form").validateSupport({
         eachValidField : function() {  //成功时添加的样式
             $(this).parents('.form-group').removeClass('has-error').addClass('has-success');
         },
