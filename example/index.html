@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>validate support demo</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+        .form-wrapper {
+            padding-right: 15px;
+        }
+    </style>
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row ">
+
+        <div class="col-sm-8 col-md-6 col-offset-sm-2 col-sm-offset-2 col-md-offset-3">
+            <div class="form-wrapper">
+                <form class="form-horizontal first-form" action="">
+
+                    <div class="description text-center">
+                        <h4><strong>Bootstrap</strong> Form</h4>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-3 control-label">phone</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="phone" class="form-control" id="phone" placeholder="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone2" class="col-sm-3 control-label">phone</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="phone" class="form-control" id="phone2" placeholder="phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone-regex" class="col-sm-3 control-label">phone-regex</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="phone-regex" class="form-control" id="phone-regex" placeholder="phone-regex">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mask" class="col-sm-3 control-label">mask</label>
+                        <div class="col-sm-9">
+<!--
+                            <input type="text" name="mask" id="mask" placeholder="R$ 0,00" data-pattern="^(?:R\$)?\s*(\d+)(?:[,\.](\d)(\d)?)?\d*$" data-mask="R$ ${1},${2:`0`}${3:`0`}">
+-->
+                            <input type="text" name="mask" class="form-control" id="mask" placeholder="R$ 0,00">
+                        </div>
+                    </div> <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">email</label>
+                        <div class="col-sm-9">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="range" class="col-sm-3 control-label">range</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="range" class="form-control" id="range" placeholder="range">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">password</label>
+                        <div class="col-sm-9">
+                            <input type="password" name="password" class="form-control" id="password" placeholder="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password-again" class="col-sm-3 control-label">again-password</label>
+                        <div class="col-sm-9">
+                            <input type="password" name="password-again" class="form-control" id="password-again" placeholder="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sex" class="col-sm-3 control-label">sex</label>
+                        <div class="col-sm-9">
+
+                            <label class="radio-inline">
+                                <input type="radio" name="sex" id="sex" value="man"> man
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sex" value="women"> women
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text-area" class="col-sm-3 control-label">text-area</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" id="text-area" name="text-area" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="select" class="col-sm-3 control-label">select</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" name="select" id="select">
+                                <option value="">请选择</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-3 control-label">checkbox</div>
+
+                        <div class="col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="checkbox"> checkbox1
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="checkbox"> checkbox2
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="reset" class="btn btn-default">重置</button>
+                            <button type="submit" class="btn btn-default btn-primary">保存</button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <form class="form-horizontal second-form" method="post" action="">
+
+                    <div class="description text-center">
+                        <h4><strong>Bootstrap</strong> Form</h4>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">name</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="name" class="form-control" placeholder="name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">idcard</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="idcard" class="form-control" placeholder="idcard">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">email</label>
+                        <div class="col-sm-9">
+                            <input type="email" name="email" class="form-control" placeholder="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="reset" class="btn btn-default">reset</button>
+                            <button type="submit" class="btn btn-default btn-primary">submit</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="../validate/jquery-validate.js"></script>
+<script src="../src/jquery.validate.support.js"></script>
+
+<script type="text/javascript">
+
+    $("form").find("input").each(function (index, item) {
+        $(item).attr("autocomplete", "off");
+
+    })
+    var validate1 = $("form.first-form").validateSupport({  //当表单控件没有约束时,默认会加上成功的样式
+         eachValidField : function() {  //成功时添加的样式
+             $(this).parents('.form-group').removeClass('has-error').addClass('has-success');
+         },
+        eachInvalidField: function () {  //失败时
+            $(this).parents('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        debug: true,
+        sendForm: false, //阻止表单的默认提交行为
+        message: {  //有值时将会覆盖默认的全局提示模板
+            required: {  //非空验证失败的提示模板
+                template: function (key) {
+                    if (key == "name") {
+                        return '<span class="help-block name-required">{content}</span>';
+                    }
+                    return '<span class="help-block">{content}</span>';
+                },
+                content: function (key) {
+                    if (key == "range") {
+                        return "range不能为空";
+                    } else if (key == "name") {
+                        return "name不能为空";
+                    } else if (key == "phone") {
+                        return "电话不能为空";
+                    } else if (key == "mask") {
+                        return key + "不能为空";
+                    }
+                    return $.fn.validateSupport.defaults.language.required;
+                }
+            },
+            pattern: {  //覆盖正则验证失败的提示
+                template: '<span class="help-block">{content}</span>',
+                content: function (key) {
+                    if (key == "phone-regex") {
+                        return '手机号验证失败(全局提示)';
+                    }
+                    return '正则验证失败';
+                }
+            },
+            valid: {  //验证通过时的显示
+                template: function (key) {
+                    if (key == "name") {
+                        return '<span class="help-block name-valid">{content}</span>';
+                    }
+                    return '<span class="help-block">{content}</span>';
+                },
+                content: function (key) {
+                    if (key == "name") {
+                        return "姓名验证通过";
+                    } else if (key == "phone") {
+                        return "电话验证通过";
+                    } else if (key == "email") {
+                        return "邮箱验证通过";
+                    }
+                    return $.fn.validateSupport.defaults.language.success;
+                }
+            },
+            conditional: {  //自定义验证函数失败时的提示模板
+                template: function (key) {
+                    if (key == "name") {
+                        return '<span class="help-block name-conditional">{content}</span>';
+                    }
+                    return '<span class="help-block">{content}</span>';
+                },
+                content:  $.fn.validateSupport.defaults.language.conditional
+            }
+        },
+        description: function ($description, $el, key, rule) {
+            //全局定义提示内容的位置
+            if (key == "checkbox") {
+                $el.parent().parent().append($description);
+            } else {
+                $description.insertAfter($el);
+            }
+        },
+        descriptionPrefix: "joker",
+        required: true,  //rules中配置的将会使用该属性,如果其存在将会进行覆盖
+        trim: false,
+        always: function (key, valid) {
+            //console.log(this);
+            console.log(key + ": " + valid);
+        },
+        scrollToError: {
+            //提交表单后若存在不通过元素,scroll到对应的位置,可选
+            offset: function (key, rules) {
+                //相对该元素的offset值
+                if ($(document).width() < 768) {
+                    return -20;
+                } else {
+                    if (key === "phone") {
+                        return -20;
+                    }
+                }
+                return 0;
+            },
+            duration: 300
+        },
+        rules: {
+            name: {
+                minlength: {
+                    size: 3,
+                },
+                maxlength: {
+                    size: 20,
+                },
+                conditional: function ($el, key, rule, rules) {
+                    //自定义函数验证
+                    var value = $el.val();
+                    if (value == "joker") {
+                        return {status: false, error: "you are joker"};
+                    } else if (value == "yyc") {
+                        return {status: false};
+                    } else {
+                        return {status: true};
+                    }
+                    return true;
+                },
+                message: {
+                    valid: {  //覆盖验证通过时的提示
+                        content: '名称通过验证'
+                    }
+                }
+            },
+            'phone-regex': {
+                required: false,
+                pattern: "^(13[0123456789][0-9]{8}|15[0123456789][0-9]{8}|17[0123456789][0-9]{8}|18[0123456789][0-9]{8}|147[0-9]{8}|19[0123456789][0-9]{8}|16[0123456789][0-9]{8})$",
+                message: {
+                    pattern: {  //覆盖正则验证失败的提示
+                        template: '<span class="help-block">{content}</span>',
+                        content: '手机号验证失败(局部提示)'
+                    }
+                }
+            },
+            phone: {
+                phone: true
+            },
+            phone2: {
+                //id: true,
+                //selector: "#phone2",
+                selector: function ($form) {
+                    //匹配元素的方式:
+                    //id > selector > key
+                    //id (boolean) 当前key作为id选择器匹配
+                    //通过selector匹配对应元素(string||fn)
+                    //最后默认根据name属性(key)在当前表单匹配
+                    return $form.find("[name='phone']").eq(1);
+                },
+                phone: true,
+            },
+            mask: {
+                mask: "R$ ${1},${2:`0`}${3:`0`}",
+                pattern: "^(?:R\\$)?\\s*(\\d+)(?:[,\\.](\\d)(\\d)?)?\\d*$"
+            },
+            email: {
+                required: false,
+                email: true
+            },
+            range: {
+                range: [19, 21]
+            },
+            password: {
+                maxlength: {
+                    size: 6
+                },
+                minlength: 2
+            },
+            'password-again': {
+                equalTo: {
+                    key: "password",
+                    error: "请输入相同的密码"  //替换默认提示文字
+                }
+            },
+            sex: {
+                description: function ($description, $el) {
+                    $el.parent().parent().append($description);
+                }
+            },
+            'text-area': {
+                trim: true,  //使用trim
+                minlength: {
+                    twoCharLinebreak: true,
+                    utf8: false,
+                    size: 2 //最小长度
+                }
+            },
+            select: {
+                id: true
+            },
+            checkbox: {
+                message: {
+                    valid: {  //覆盖验证通过时的提示
+                        template: '',
+                        content: '名称通过验证'
+                    }
+                }
+            }
+        },
+        invalid: function (event, options) {  //提交表单验证不通过时
+
+        },
+        valid: function (event, options) {
+            alert(this.serialize());
+        }
+    });
+
+    var validate2 = $("form.second-form").validateSupport({
+        eachValidField: function () {  //成功时添加的样式
+            $(this).parents('.form-group').removeClass('has-error').addClass('has-success has-feedback');
+            var $feedback = $(this).next(".glyphicon");
+            if (!($feedback[0])) {
+                $feedback = $('<span class="glyphicon form-control-feedback" aria-hidden="true"></span>');
+                $feedback.insertAfter($(this));
+            }
+            $feedback.removeClass('glyphicon-remove').addClass("glyphicon-ok");
+        },
+        eachInvalidField: function () {  //失败时
+            $(this).parents('.form-group').removeClass('has-success').addClass('has-error has-feedback');
+            var $feedback = $(this).next(".glyphicon");
+            if (!($feedback[0])) {
+                $feedback = $('<span class="glyphicon form-control-feedback" aria-hidden="true"></span>');
+                $feedback.insertAfter($(this));
+            }
+            $feedback.removeClass('glyphicon-ok').addClass("glyphicon-remove");
+        },
+        clearAll: function ($elements) {
+            //用于清除提示的样式
+            for (var i in $elements) {
+                var $element = $elements[i];
+                $element.$description.children().remove();
+                var $el = $element.$el;
+                $el.parents('.form-group').removeClass("has-success has-error");
+                $el.next(".glyphicon").remove();
+            }
+        },
+        debug: true,
+        sendForm: false, //阻止表单的默认提交行为
+        message: {  //有值时将会覆盖默认的全局提示模板
+            valid: {  //通过验证时的提示模板
+                //content: ''
+            }
+        },
+        description: function ($description, $el) {
+            $description.insertAfter($el);
+        },
+        required: true,  //rules中配置的将会使用该属性,如果其存在将会进行覆盖
+        trim: true,
+        rules: {
+            name: {
+                minlength: {
+                    size: 2,
+                },
+                maxlength: {
+                    size: 20,
+                },
+                conditional: function ($el) {
+                    //自定义函数验证
+                    var value = $el.val();
+                    if (value == "joker") {
+                        return {status: false, error: "you are joker"};
+                    } else if (value == "yyc") {
+                        return {status: false};
+                    } else {
+                        return {status: true};
+                    }
+                    return true;
+                },
+                message: {
+                    valid: {  //覆盖验证通过时的提示
+                        template: '<span class="help-block">{content}</span>',
+                        content: '名称通过验证'
+                    }
+                }
+            },
+            email: {
+                required: false,
+                email: true
+            },
+            idcard: {
+                idcard: true
+            }
+        },
+        invalid: function (event, options) {  //提交表单验证不通过时
+        },
+        valid: function (event, options) {
+            alert(this.serialize());
+        }
+    });
+
+</script>
+
+</body>
+</html>
