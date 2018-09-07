@@ -52,9 +52,8 @@ $.extend($.fn.validateSupport.defaults.api, {
 > options 参数
 
 ```javascript
-/**
-{
-    sendForm: boolean, //默认值true,是否阻止表单的默认提交行为
+/**{
+    sendForm: boolean, //默认值true,是否为表单的默认提交行为
     eachValidField: fn(event), //元素验证成功时执行(this指当前元素的jquery对象) 
     eachInvalidField: fn(event), //元素验证失败时执行(this同上)
     invalid: fn(event),  //表单提交验证失败时执行(this指当前表单的jquery对象)
@@ -115,7 +114,7 @@ $.extend($.fn.validateSupport.defaults.api, {
     * @param rule
     */   
     description: null || function($description, $el, key, rule),  
-    descriptionPrefix: string, //生成提示信息元素的前缀,默认validate
+    descriptionPrefix: string, //生成提示信息元素的前缀,默认值为validate
     /**
     *
     * 用于设置提示元素显示的显示内容元素(全局)【rule中key的该参数可覆盖全局,参数一致】

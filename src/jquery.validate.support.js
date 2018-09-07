@@ -569,7 +569,7 @@
 
         var custom = {   //自定义拓展属性
             debug: false,
-            clearAll: function ($elements) {
+            clearAll: function ($elements, rules) {
                 //用于清除提示的样式
                 for (var i in $elements) {
                     var $element = $elements[i];
@@ -577,11 +577,11 @@
                     $element.$el.parents('.form-group').removeClass("has-success has-error");
                 }
             },
-            always: null, //为函数时每次验证后执行 fn(key, valid, rules) key(rule key) -- string valid(是否通过验证) -- boolean  this(当前key对应的元素对象)
-            scrollToError: null, //表单不通过时定位到当前第一位错误元素的配置 {offset(基于该元素的offset值): number || fn(key, rules)//【this(当前key对应的元素对象)】, duration(scroll duration): number}
-            required: false,   //(boolean) || fn($el, key, rule) //全局验证是否required【rule中key的该参数可覆盖全局,参数一致】
-            trim: false,  // boolean, 全局默认不进行trim 【rule中key的该参数可覆盖全局,参数一致】
-            description: null,  //function($description, $el, key, rule){},  //用于设置提示显示的位置(全局)【rule中key的该参数可覆盖全局,参数一致】
+            always: null,
+            scrollToError: null,
+            required: false,
+            trim: false,
+            description: null,
             descriptionPrefix: "validate", //生成提示信息的元素前缀
             message: {  //全局设置消息提示的元素 【rule中key的该参数可覆盖全局,参数一致】
                 required: {  //非空验证失败的提示模板
