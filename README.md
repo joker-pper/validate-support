@@ -26,16 +26,12 @@ jquery表单验证插件,依赖validate插件特性,使用更加方便简单
 
 > 使用方式
 
-<br />
-
 ```javascript
 $(form).validateSupport(options);
 
 ```
 
 > 覆盖默认语言/覆盖默认函数
-
-<br />
 
 ```javascript
 
@@ -53,7 +49,7 @@ $.extend($.fn.validateSupport.defaults.api, {
 ```
 
 
-> options
+> options 参数
 
 <br />
 
@@ -161,8 +157,7 @@ $.extend($.fn.validateSupport.defaults.api, {
         }
     },
     rules: {}
-}
-*/
+}*/
 
 ```
 
