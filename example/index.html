@@ -246,9 +246,12 @@
 
 <script src="../validate/jquery-validate.js"></script>
 <!--
-<script src="../src/jquery.validate.support.js"></script>
 -->
+<script src="../src/jquery.validate.support.js"></script>
+
+<!--
 <script src="../src/jquery.validate.support.min.js"></script>
+-->
 
 <script type="text/javascript" src="resource/syntaxhighlighter/scripts/XRegExp.js"></script> <!-- XRegExp is bundled with the final shCore.js during build -->
 <script type="text/javascript" src="resource/syntaxhighlighter/scripts/shCore.js"></script>
@@ -488,6 +491,7 @@
             $feedback.removeClass('glyphicon-ok').addClass("glyphicon-remove");
         },
         clearAll: function ($elements) {
+            console.log(this)
             //用于清除提示的样式
             for (var i in $elements) {
                 var $element = $elements[i];
@@ -545,6 +549,7 @@
             }
         },
         invalid: function (event, options) {  //提交表单验证不通过时
+            console.log(this)
         },
         valid: function (event, options) {
             alert(this.serialize());

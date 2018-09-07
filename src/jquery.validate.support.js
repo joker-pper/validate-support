@@ -555,10 +555,10 @@
             onBlur: true,
             onChange: true,
             sendForm: true,
-            eachValidField: function () {
+            eachValidField: function (event, status, options) {
                 $(this).parents('.form-group').removeClass('has-error').addClass('has-success');
             },
-            eachInvalidField: function () {
+            eachInvalidField: function (event, status, options) {
                 $(this).parents('.form-group').removeClass('has-success').addClass('has-error');
             },
             invalid: function(event, options) {  //提交表单验证不通过时
@@ -577,7 +577,7 @@
                     $element.$el.parents('.form-group').removeClass("has-success has-error");
                 }
             },
-            always: null, //为函数时每次验证后执行 fn(key, valid) key(rule key) -- string valid(是否通过验证) -- boolean  this(当前key对应的元素对象)
+            always: null, //为函数时每次验证后执行 fn(key, valid, rules) key(rule key) -- string valid(是否通过验证) -- boolean  this(当前key对应的元素对象)
             scrollToError: null, //表单不通过时定位到当前第一位错误元素的配置 {offset(基于该元素的offset值): number || fn(key, rules)//【this(当前key对应的元素对象)】, duration(scroll duration): number}
             required: false,   //(boolean) || fn($el, key, rule) //全局验证是否required【rule中key的该参数可覆盖全局,参数一致】
             trim: false,  // boolean, 全局默认不进行trim 【rule中key的该参数可覆盖全局,参数一致】
@@ -787,7 +787,7 @@
                 $this.data("validField", false);
                 fn.apply(this, arguments);
                 if (custom.always && typeof custom.always === "function") {
-                    custom.always.call(this, $this.data("ruleKey"), false);
+                    custom.always.call(this, $this.data("ruleKey"), false, rules);
                 }
             }
         }
@@ -799,7 +799,7 @@
                 $this.data("validField", true);
                 fn.apply(this, arguments);
                 if (custom.always && typeof custom.always === "function") {
-                    custom.always.call(this, $this.data("ruleKey"), true);
+                    custom.always.call(this, $this.data("ruleKey"), true, rules);
                 }
             }
         }
@@ -815,7 +815,7 @@
         $form.validate(options);
 
         $form.on("reset", function (e) {
-            custom.clearAll($elements);
+            returns.clearAll();
         });
 
 
@@ -894,7 +894,7 @@
              * 清除提示的内容及样式
              */
             clearAll: function () {
-                custom.clearAll($elements);
+                custom.clearAll.call($form, $elements, rules);
             },
 
             /**
