@@ -472,26 +472,29 @@
 </script>
 <script type="text/javascript" id="validate2">
     var validate2 = $("form.second-form").validateSupport({
-        eachValidField: function () {  //成功时添加的样式
-            $(this).parents('.form-group').removeClass('has-error').addClass('has-success has-feedback');
-            var $feedback = $(this).next(".glyphicon");
+        eachValidField: function (event) {
+            //成功时添加的样式
+            var $this = this;
+            $this.parents('.form-group').removeClass('has-error').addClass('has-success has-feedback');
+            var $feedback = $this.next(".glyphicon");
             if (!($feedback[0])) {
                 $feedback = $('<span class="glyphicon form-control-feedback" aria-hidden="true"></span>');
-                $feedback.insertAfter($(this));
+                $feedback.insertAfter($this);
             }
             $feedback.removeClass('glyphicon-remove').addClass("glyphicon-ok");
         },
-        eachInvalidField: function () {  //失败时
-            $(this).parents('.form-group').removeClass('has-success').addClass('has-error has-feedback');
-            var $feedback = $(this).next(".glyphicon");
+        eachInvalidField: function (event) {
+            //失败时
+            var $this = this;
+            $this.parents('.form-group').removeClass('has-success').addClass('has-error has-feedback');
+            var $feedback = $this.next(".glyphicon");
             if (!($feedback[0])) {
                 $feedback = $('<span class="glyphicon form-control-feedback" aria-hidden="true"></span>');
-                $feedback.insertAfter($(this));
+                $feedback.insertAfter($this);
             }
             $feedback.removeClass('glyphicon-ok').addClass("glyphicon-remove");
         },
-        clearAll: function ($elements) {
-            console.log(this)
+        clearAll: function ($elements, rules) {
             //用于清除提示的样式
             for (var i in $elements) {
                 var $element = $elements[i];
@@ -503,12 +506,28 @@
         },
         debug: true,
         sendForm: false, //阻止表单的默认提交行为
-        message: {  //有值时将会覆盖默认的全局提示模板
+        message: {
             valid: {  //通过验证时的提示模板
-                //content: ''
+                content: function (key) {
+                    return "通过验证";
+                }
+            },
+            pattern: {
+                content: function (key) {
+                    return "验证失败";
+                }
+            },
+            conditional: {
+                content: "验证失败"
+            },
+            required: {
+                content: function (key) {
+                    return "必填项";
+                }
             }
         },
-        description: function ($description, $el) {
+        description: function ($description, $el, key, rule) {
+            //全局设置提示元素显示的位置
             $description.insertAfter($el);
         },
         required: true,  //rules中配置的将会使用该属性,如果其存在将会进行覆盖
@@ -516,15 +535,16 @@
         rules: {
             name: {
                 minlength: {
-                    size: 2,
+                    size: 2
                 },
                 maxlength: {
-                    size: 20,
+                    size: 20
                 },
-                conditional: function ($el) {
+                conditional: function ($el, key, rule, rules) {
                     //自定义函数验证
                     var value = $el.val();
                     if (value == "joker") {
+                        //error将作为当前不通过的验证提示
                         return {status: false, error: "you are joker"};
                     } else if (value == "yyc") {
                         return {status: false};
@@ -535,21 +555,20 @@
                 },
                 message: {
                     valid: {  //覆盖验证通过时的提示
-                        template: '<span class="help-block">{content}</span>',
                         content: '名称通过验证'
                     }
                 }
             },
             email: {
-                required: false,
                 email: true
             },
             idcard: {
+                required: false,
                 idcard: true
             }
         },
         invalid: function (event, options) {  //提交表单验证不通过时
-            console.log(this)
+            //console.log(this)
         },
         valid: function (event, options) {
             alert(this.serialize());

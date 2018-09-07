@@ -47,6 +47,115 @@ $.extend($.fn.validateSupport.defaults.api, {
 
 
 ```
+> example
+
+```javascript
+
+$("form").validateSupport({
+        eachValidField: function (event) {
+            //成功时添加的样式
+            var $this = this;
+            $this.parents('.form-group').removeClass('has-error').addClass('has-success has-feedback');
+            var $feedback = $this.next(".glyphicon");
+            if (!($feedback[0])) {
+                $feedback = $('<span class="glyphicon form-control-feedback" aria-hidden="true"></span>');
+                $feedback.insertAfter($this);
+            }
+            $feedback.removeClass('glyphicon-remove').addClass("glyphicon-ok");
+        },
+        eachInvalidField: function (event) {
+            //失败时
+            var $this = this;
+            $this.parents('.form-group').removeClass('has-success').addClass('has-error has-feedback');
+            var $feedback = $this.next(".glyphicon");
+            if (!($feedback[0])) {
+                $feedback = $('<span class="glyphicon form-control-feedback" aria-hidden="true"></span>');
+                $feedback.insertAfter($this);
+            }
+            $feedback.removeClass('glyphicon-ok').addClass("glyphicon-remove");
+        },
+        clearAll: function ($elements, rules) {
+            //用于清除提示的样式
+            for (var i in $elements) {
+                var $element = $elements[i];
+                $element.$description.children().remove();
+                var $el = $element.$el;
+                $el.parents('.form-group').removeClass("has-success has-error");
+                $el.next(".glyphicon").remove();
+            }
+        },
+        sendForm: false, //阻止表单的默认提交行为
+        message: {
+            valid: {  //通过验证时的提示模板
+                content: function (key) {
+                    return "通过验证";
+                }
+            },
+            pattern: {
+                content: function (key) {
+                    return "验证失败";
+                }
+            },
+            conditional: {
+                content: "验证失败"
+            },
+            required: {
+                content: function (key) {
+                    return "必填项";
+                }
+            }
+        },
+        description: function ($description, $el, key, rule) {
+            //全局设置提示元素显示的位置
+            $description.insertAfter($el);
+        },
+        required: true,  //rules中配置的将会使用该属性,如果其存在将会进行覆盖
+        trim: true,
+        rules: {
+            name: {
+                minlength: {
+                    size: 2
+                },
+                maxlength: {
+                    size: 20
+                },
+                conditional: function ($el, key, rule, rules) {
+                    //自定义函数验证
+                    var value = $el.val();
+                    if (value == "joker") {
+                        //error将作为当前不通过的验证提示
+                        return {status: false, error: "you are joker"};
+                    } else if (value == "yyc") {
+                        return {status: false};
+                    } else {
+                        return {status: true};
+                    }
+                    return true;
+                },
+                message: {
+                    valid: {  //覆盖验证通过时的提示
+                        content: '名称通过验证'
+                    }
+                }
+            },
+            email: {
+                email: true
+            },
+            idcard: {
+                required: false,
+                idcard: true
+            }
+        },
+        invalid: function (event, options) {  //提交表单验证不通过时
+            //console.log(this)
+        },
+        valid: function (event, options) {
+            alert(this.serialize());
+        }
+    });
+```
+
+
 
 
 > options 参数
@@ -58,24 +167,24 @@ $.extend($.fn.validateSupport.defaults.api, {
     eachInvalidField: fn(event), //元素验证失败时执行(this同上)
     invalid: fn(event),  //表单提交验证失败时执行(this指当前表单的jquery对象)
     valid: fn(event),  //表单提交验证通过时执行(this同上)
-    /**
-     * 用于清除验证提示样式的函数(this同上)
-     * @param $elements:
-     *      {
-     *        $el: object, // rule key所对应的表单元素jquery对象 
-     *        key: string, // rule key  
-     *        $description: object, // rule key所对应的提示元素jquery对象    
-     *      }
-     * @param rules: 所设置表单元素的rules
-     */
+   /**
+    * 用于清除验证提示样式的函数(this同上)
+    * @param $elements:
+    *      {
+    *        $el: object, // rule key所对应的表单元素jquery对象 
+    *        key: string, // rule key  
+    *        $description: object, // rule key所对应的提示元素jquery对象    
+    *      }
+    * @param rules: 所设置表单元素的rules
+    */
     clearAll: fn($elements, rules), 
     /**
-      * 可选配置,默认不存在
-      * 函数存在时会在每次验证后执行(this指当前元素的jquery对象)
-      * @param key: rule key 
-      * @param valid: boolean 验证通过或失败
-      * @param rules
-      */ 
+     * 可选配置,默认不存在
+     * 函数存在时会在每次验证后执行(this指当前元素的jquery对象)
+     * @param key: rule key 
+     * @param valid: boolean 验证通过或失败
+     * @param rules
+     */ 
     always: fn(key, valid, rules),
     /**
     * 可选配置,默认不存在
@@ -131,7 +240,7 @@ $.extend($.fn.validateSupport.defaults.api, {
             * @param key: rule key
             * @return string
             */
-            template: string || fn(key),  /**
+            template: string || fn(key),  
             * 
             * 提示文字
             * 默认值: $.fn.validateSupport.defaults.language.required
