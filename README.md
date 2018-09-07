@@ -51,8 +51,6 @@ $.extend($.fn.validateSupport.defaults.api, {
 
 > options 参数
 
-<br />
-
 ```javascript
 /**
 {
@@ -63,7 +61,7 @@ $.extend($.fn.validateSupport.defaults.api, {
     valid: fn(event),  //表单提交验证通过时执行(this同上)
     /**
      * 用于清除验证提示样式的函数(this同上)
-     * @param $elements 
+     * @param $elements:
      *      {
      *        $el: object, // rule key所对应的表单元素jquery对象 
      *        key: string, // rule key  
@@ -90,7 +88,7 @@ $.extend($.fn.validateSupport.defaults.api, {
         * this指当前错误元素的jquery对象
         * @param key: rule key
         * @param rules
-        * @param return number
+        * @return number
         */
         offset: number || fn(key, rules) //基于当前错误元素位置的offset值
         duration: number //scroll duration 可选,默认值500 
