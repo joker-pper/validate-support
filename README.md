@@ -25,8 +25,10 @@ jquery表单验证插件,依赖validate插件特性,使用更加方便简单
 [demo地址](https://joker-pper.github.io/validate-support/example/)
 
 > options
-```javascript
 
+<br />
+
+```javascript
 {
     sendForm: boolean, //默认值true,是否阻止表单的默认提交行为
     eachValidField: fn(event), //元素验证成功时执行(this指当前元素的jquery对象) 
