@@ -284,6 +284,7 @@
         number: defaultApi.number,
         isBlank: defaultApi.isBlank,
         isEmpty: defaultApi.isEmpty,
+        digits: defaultApi.digits,
         log: function (text) {
             console && console.log(text);
         },
@@ -301,7 +302,7 @@
     //验证已存在函数的参数配置值
     var methodParameterValidate = function (rule, rules) {
         var methods_boolean = ["number", "url", "email", "digits", "idcard", "phone", "date", "dateISO"];
-        var methods = [];
+        var methods = []; //要验证的函数
         for (var i in methods_boolean) {
             var method = methods_boolean[i];
             var method_val = rule[method];
@@ -310,7 +311,9 @@
                 if (type !== "boolean" && method_val !== 1 && method_val !== 0) {
                     throw new Error("rule key named " + rule.key + "'s method " + method + " value must be boolean");
                 } else {
-                    methods.push(method);
+                    if (method_val) {
+                        methods.push(method);
+                    }
                 }
             }
         }
@@ -343,6 +346,10 @@
                     if (type === "number") {
                         method_val = {size: method_val};
                     }
+                    if (!utils.digits(method_val.size)) {
+                        throw new Error("rule key named " + rule.key + "'s method " + method + " size value must be digits");
+                    }
+
                     $.extend(option, method_val);
                     rule[method] = option;
                     methods.push(method);
@@ -582,7 +589,8 @@
             required: false,
             trim: false,
             description: null,
-            descriptionPrefix: "validate", //生成提示信息的元素前缀
+            descriptionPrefix: "validate", //生成提示信息的元素id前缀,最终名称: descriptionPrefix + key + "-description"
+            descriptionClass: "validate-description", //生成提示信息的元素所应用的class
             message: {  //全局设置消息提示的元素 【rule中key的该参数可覆盖全局,参数一致】
                 required: {  //非空验证失败的提示模板
                     template: '<span class="help-block">{content}</span>', // string || fn(key) 返回值需要为string
@@ -602,23 +610,11 @@
                 }
             },
             rules: {}
-            /*
-             rules: {
-                 key: {
-                   conditional: fn,  //自定义验证函数fn($el, key, rule, rules)
-                   pattern: string,  //正则表达式
-                   mask: string,  //
-                   id: boolean,  //是否以key作为id选择器
-                   selector: string || fn($form),  //选择器或者函数返回当前元素的对象
-                   message: object,
-             },
-             */
         };
 
 
         var attrs = handler.getKeys(custom);
         for (var i in attrs) {
-
             var key = attrs[i];
             var value = options[key];
             var type = typeof value;
@@ -705,7 +701,7 @@
                 //通过函数调用返回函数的方式来处理避免其中的参数值被覆盖 （定义了该函数,每次都会进行执行）
                 options.conditional[functionName] = resolver(rule, $el, globalRequired, rules);
 
-                var $description = $("<div></div>").attr("id", describedby);
+                var $description = $("<div></div>").attr("id", describedby).addClass(custom.descriptionClass);
                 rule.$description = $description;
 
                 rule.$el = $el;

@@ -22,7 +22,7 @@ jquery表单验证插件,依赖validate插件特性,使用更加方便简单
 1. 支持表单不通过时定位到指定元素位置
 1. 提示信息可定制化
 
-[demo地址](https://joker-pper.github.io/validate-support/example/)
+
 
 > 使用方式
 
@@ -30,6 +30,11 @@ jquery表单验证插件,依赖validate插件特性,使用更加方便简单
 $(form).validateSupport(options);
 
 ```
+
+> demo演示
+
+[地址](https://joker-pper.github.io/validate-support/example/)
+
 
 > 覆盖默认语言/覆盖默认函数
 
@@ -49,7 +54,7 @@ $.extend($.fn.validateSupport.defaults.api, {
 ```
 
 
-> options 参数
+> options 参数 (均可重写覆盖)
 
 ```javascript
 /**{
@@ -58,7 +63,7 @@ $.extend($.fn.validateSupport.defaults.api, {
     eachInvalidField: fn(event), //元素验证失败时执行(this同上)
     invalid: fn(event),  //表单提交验证失败时执行(this指当前表单的jquery对象)
     valid: fn(event),  //表单提交验证通过时执行(this同上)
-   /**
+    /**
     * 用于清除验证提示样式的函数(this同上)
     * @param $elements:
     *      {
@@ -69,8 +74,8 @@ $.extend($.fn.validateSupport.defaults.api, {
     * @param rules: 所设置表单元素的rules
     */
     clearAll: fn($elements, rules), 
-    /**
-     * 可选配置,默认不存在
+     /**
+     * 默认不存在
      * 函数存在时会在每次验证后执行(this指当前元素的jquery对象)
      * @param key: rule key 
      * @param valid: boolean 验证通过或失败
@@ -78,7 +83,7 @@ $.extend($.fn.validateSupport.defaults.api, {
      */ 
     always: fn(key, valid, rules),
     /**
-    * 可选配置,默认不存在
+    * 默认不存在
     * 存在时会在表单不通过滚动到当前表单首位错误元素的位置
     */
     scrollToError: {
@@ -92,7 +97,7 @@ $.extend($.fn.validateSupport.defaults.api, {
         offset: number || fn(key, rules) //基于当前错误元素位置的offset值
         duration: number //scroll duration 可选,默认值500 
     },
-   /**
+    /**
     * 
     * 用于全局设置元素是否required,默认值false
     * 【局部rule中key的该参数可覆盖对应元素的属性】  
@@ -113,8 +118,16 @@ $.extend($.fn.validateSupport.defaults.api, {
     * @param key: rule key
     * @param rule
     */   
-    description: null || function($description, $el, key, rule),  
-    descriptionPrefix: string, //生成提示信息元素的前缀,默认值为validate
+    description: null || function($description, $el, key, rule), 
+    /**
+    * 生成提示信息的元素id前缀,默认值为validate
+    * 最终名称: descriptionPrefix + key + "-description"
+    */  
+    descriptionPrefix: string, 
+    /**
+    * 生成提示信息的元素所应用的class,默认值validate-description
+    */  
+    descriptionClass: string,
     /**
     *
     * 用于设置提示元素显示的显示内容元素(全局)【rule中key的该参数可覆盖全局,参数一致】
@@ -132,7 +145,7 @@ $.extend($.fn.validateSupport.defaults.api, {
             * @return string
             */
             template: string || fn(key),  
-            * 
+            /** 
             * 提示文字
             * 默认值: $.fn.validateSupport.defaults.language.required
             * @param key: rule key
@@ -153,12 +166,102 @@ $.extend($.fn.validateSupport.defaults.api, {
            content: string || fn(key)
         }
     },
-    rules: {}
+    rules: {
+        /**
+        * key是作为当前表单元素的标识
+        * 表单如何匹配元素(id > selector > key默认匹配): 
+        *   id (boolean) 当前key作为id选择器匹配
+        *   通过selector匹配对应元素(string||fn)
+        *   selector不存在时根据name属性(key)在当前表单匹配
+        * 
+        * rule key所支持函数属性将单独列出  
+        */ 
+        key: {
+                id: boolean,  //是否以key作为id选择器
+                /**
+                * 正则表达式,用于验证是否满足条件,不通过时显示当前key所应用的pattern提示信息
+                */
+                pattern: string,
+                /** 
+                * 用于格式化元素值满足正则验证后应用
+                */
+                mask: string,
+                /** 用于匹配当前key元素的jqery对象,string时直接作为选择器匹配对象
+                * @param $form: 当前表单jquery对象
+                * @return object: 当前key对应的表单元素jquery对象
+                */
+                selector: string || fn($form), 
+                /**
+                * 自定义函数验证当前元素是否满足条件
+                * 返回值为boolean: false时显示当前key所应用的conditional提示信息
+                * @param $el
+                * @param key
+                * @param rule
+                * @param rules
+                * 
+                * @return boolean 
+                *           ||
+                 *        {
+                *           status: boolean, //是否验证通过
+                *           error: string //status为false时,用于作为当前key的提示信息(不存在时采用默认的conditional提示信息)
+                *         }
+                */
+                conditional: fn($el, key, rule, rules),
+                /*** 以下属性参数,可以覆盖对应的全局配置项 ***/ 
+                message: {
+                },
+                required: boolean || fn($el, key, rule),  
+                trim: boolean,  
+                description: null || function($description, $el, key, rule)
+                    
+        }  
+    
+        
+    }
 }*/
 
 ```
 
-> 代码示例
+> rule key中支持函数配置
+
+```javascript
+
+range: [number, number]  //验证值是否在指定区间范围
+
+/**
+* equalTo 验证元素值是否相等,
+* 参数为string时为对应元素key(同对象参数key),
+* 参数为对象时error值可覆盖默认equalTo函数提示文字 
+*/
+equalTo: string || {key: string, error: string}
+
+
+
+maxlength || minlength (会依赖trim参数值)
+参数值 number || {}
+    默认转化为{}验证,参数值为number时作为长度
+{
+    twoCharLinebreak: boolean, //默认值true
+    utf8: boolean,  //默认值false
+    size: number //长度,整数
+}
+
+
+
+//其他函数
+
+参数值 boolean || 0 || 1 :
+    number(数字), url, email, digits(整数), idcard, phone, date, dateISO
+参数值 number:
+    min(最小值) max(最大值)
+
+
+    
+
+```
+
+
+> 代码示例 (demo中的示例二)
 
 ```javascript
 
