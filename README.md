@@ -17,11 +17,10 @@ jquery表单验证插件,依赖validate插件特性,使用更加方便简单
 
 1. 提供多个方法可直接使用 
 1. 支持自定义函数验证
-1. 支持全局配置及局部覆盖配置
+1. 支持全局配置及局部覆盖配置,提示信息可定制化
 1. 操作简单
 1. 支持表单不通过时定位到指定元素位置
-1. 提示信息可定制化
-
+1. 在rules中添加配置后才会进行元素限制
 
 
 > 使用方式
@@ -53,6 +52,15 @@ $.extend($.fn.validateSupport.defaults.api, {
 
 ```
 
+> api
+
+```javascript
+    clearAll() //清除提示样式 
+    getRule(key) //获取指定key的rule 
+    getField(key) //获取指定key的field对象
+    scrollErrorTo(key) //滚动到指定错误元素,key为null时是滚动到默认 根据error配置项执行,必须为error field才会执行
+    scrollTo(key, offset, duration) //滚动到指定元素 offset及duration同options中scrollToError的参数
+```
 
 > options 参数 (均可重写覆盖)
 
@@ -249,19 +257,16 @@ maxlength || minlength (会依赖trim参数值)
 
 
 //其他函数
+number(数字), url, email, digits(整数), idcard, phone, date, dateISO
+参数值 boolean || 0 || 1 
 
-参数值 boolean || 0 || 1 :
-    number(数字), url, email, digits(整数), idcard, phone, date, dateISO
-参数值 number:
-    min(最小值) max(最大值)
-
-
-    
+min(最小值) max(最大值)
+参数值 number
 
 ```
 
 
-> 代码示例 (demo中的示例二)
+> 代码示例 (demo中的示例二) [地址](https://joker-pper.github.io/validate-support/example/#form2)
 
 ```javascript
 

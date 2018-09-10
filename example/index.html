@@ -19,6 +19,7 @@
     <style type="text/css">
         .form-wrapper {
             padding-right: 15px;
+            padding-top: 5px;
         }
     </style>
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
@@ -32,12 +33,12 @@
 
 <div class="container">
 
-    <div class="row ">
+    <div class="row">
 
         <div class="col-sm-8 col-md-6 col-offset-sm-2 col-sm-offset-2 col-md-offset-3">
-            <div class="form-wrapper">
+            <div class="form-wrapper" id="form1">
                 <form class="form-horizontal first-form" action="">
-                    <div class="description ">
+                    <div class="description">
                         <div class="text-center">
                             <h4><strong>Bootstrap</strong> Form
                             </h4>
@@ -166,53 +167,50 @@
                         </div>
                     </div>
                 </form>
-
-
-                <form class="form-horizontal second-form" method="post" action="">
-
-                    <div class="description ">
-                        <div class="text-center">
-                            <h4><strong>Bootstrap</strong> Form
-                            </h4>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-offset-8 col-sm-4 text-right" style="margin-top: -36px;">
-                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#codeModal" data-key="validate2">
-                                    查看代码
-                                </button>
+                <div class="form-wrapper" id="form2">
+                    <form class="form-horizontal second-form" method="post" action="">
+                        <div class="description">
+                            <div class="text-center">
+                                <h4><strong>Bootstrap</strong> Form
+                                </h4>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-offset-8 col-sm-4 text-right" style="margin-top: -36px;">
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#codeModal" data-key="validate2">
+                                        查看代码
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">name</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="name" class="form-control" placeholder="name">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">name</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="name" class="form-control" placeholder="name">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">idcard</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="idcard" class="form-control" placeholder="idcard">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">idcard</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="idcard" class="form-control" placeholder="idcard">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">email</label>
+                            <div class="col-sm-9">
+                                <input type="email" name="email" class="form-control" placeholder="email">
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">email</label>
-                        <div class="col-sm-9">
-                            <input type="email" name="email" class="form-control" placeholder="email">
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="reset" class="btn btn-default">reset</button>
+                                <button type="submit" class="btn btn-default btn-primary">submit</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <button type="reset" class="btn btn-default">reset</button>
-                            <button type="submit" class="btn btn-default btn-primary">submit</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
 
 
             </div>
@@ -262,6 +260,42 @@
         $(item).attr("autocomplete", "off");
     });
 
+    function scrollAnchors(selector) {
+        if (selector) {
+            var element;
+
+            if (typeof selector === "string") {
+                element = $(selector)[0];
+            } else {
+                element = selector[0];
+            }
+            if (element) {
+                if (element.scrollIntoView) {
+                    element.scrollIntoView();
+                } else {
+                    $("html,body").animate({scrollTop: $(element).offset().top}, 500);
+                }
+            }
+        }
+    }
+
+    document.body.onhashchange = function () {
+        hashAnchorsScroll();
+    }
+
+    function hashAnchorsScroll() {
+        var hash = location.hash;
+        if (hash.length > 0) {
+            var anchors = hash.substring(0, hash.indexOf("?") >= -1 ? hash.indexOf("?") : hash.length);
+            scrollAnchors(anchors);
+        }
+    }
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            hashAnchorsScroll();
+        }, 500)
+    });
 
 </script>
 
@@ -505,7 +539,7 @@
             }
         },
         debug: true,
-        sendForm: false, //阻止表单的默认提交行为
+        sendForm: true, //阻止表单的默认提交行为
         message: {
             valid: {  //通过验证时的提示模板
                 content: function (key) {
