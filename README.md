@@ -30,9 +30,9 @@ $(form).validateSupport(options);
 
 ```
 
-> demo演示
+> demo演示 [地址](https://joker-pper.github.io/validate-support/example/)
 
-[地址](https://joker-pper.github.io/validate-support/example/)
+
 
 
 > 覆盖默认语言/覆盖默认函数
